@@ -29,14 +29,13 @@ export class Tree {
     }
 
     insert(root, value) {
-        // If node is null then your at a leaf 
-        if (root === null) {
-            return new Node(value);
-        }
+        // Base Case: If the current node is null then it is a leaf position, so return a new Node there 
+        if (root === null) return new Node(value);
 
-        // No duplicates
+        // Ensures no duplicates
         if (root.data === value) return root;
 
+        // If the value is less than the value in the current Node, then continue searching left, otherwise search right
         if (value < root.data) {
             root.left = this.insert(root.left, value)
         } else if (value > root.data) {
@@ -48,8 +47,43 @@ export class Tree {
     }
 
     deleteItem(root, value) {
-        
+        // Base Case:
+        if (root === null) return root;
+
+        // Search if the value is in the left or right subtree
+        if (value < root.data) {
+            root.left = this.deleteItem(root.left, value);
+        } else if (value > root.data) {
+            root.right = this.deleteItem(root.right, value);
+        } else {
+            // If the current nodes value matches the value, then remove it given 3 scenarios:
+
+            // 1. If current node has no left children, return the right
+            if (root.left === null) return root.right;
+
+            // 2. If current node has no right children, return the left
+            if (root.right === null) return root.left;
+
+            // 3. Node has two children
+            let successor = getSuccessor(root);
+            // Replace current nodes value with successors value
+            root.data = successor.data;
+            // Remove the duplicate successor value at the leaf position
+            root.right = this.deleteItem(root.right, successor.data)
+
+        }
+
+        return root;
+
     }
 
 }
 
+function getSuccessor(node) {
+    node = node.right;
+    while (node.left !== null && node.right !== null) {
+        node = node.left;
+    }
+
+    return node;
+}

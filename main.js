@@ -6,8 +6,9 @@ const tree = new Tree(sortArray(array));
 
 tree.insert(tree.root, 6);
 tree.insert(tree.root, 6);
-prettyPrint(tree.root);
+tree.deleteItem(tree.root, 8);
 
+prettyPrint(tree.root);
 
 
 
