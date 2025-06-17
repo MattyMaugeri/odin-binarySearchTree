@@ -4,12 +4,10 @@ const array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 const tree = new Tree(sortArray(array));
 
-tree.insert(tree.root, 6);
-tree.insert(tree.root, 6);
-tree.deleteItem(tree.root, 8);
+// console.log(tree.find(tree.root, 67));
 
 prettyPrint(tree.root);
-
+tree.levelOrder(element => console.log(element.data));
 
 
 function prettyPrint(node, prefix = '', isLeft = true) {

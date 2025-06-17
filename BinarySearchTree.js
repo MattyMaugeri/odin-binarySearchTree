@@ -77,6 +77,49 @@ export class Tree {
 
     }
 
+    find(root, value) {
+        // Base Case:
+        if (root === null) return null;
+
+        // If value is less than current nodes value, search left otherwise search right
+        if (value < root.data) {
+            return root.left = this.find(root.left, value);
+        } else if (value > root.data) {
+            return root.right = this.find(root.right, value);
+        } else {
+            if (value === root.data) return root;
+        }
+
+    }
+
+    levelOrder(callback) {
+
+        if (typeof callback !== 'function') {
+            throw new Error('A callback function is required!');
+        }
+        // Create the queue using an array and with methods push() & shift()
+        let queue = [];
+
+        // Add the root node to the queue which holds references to its children
+        queue.push(this.root);
+
+        // While queue is not empty
+        while (queue.length > 0) {
+            // Remove the first node from the queue
+            const node = queue.shift();
+
+            // Do something with the code depending on callbackFn
+            callback(node);
+
+            // If the node has a left child, add it to the queue
+            if (node.left) queue.push(node.left);
+
+            // Otherwise if the node has a right child, add it to the queue
+            if (node.right) queue.push(node.right);
+        }
+
+    }
+
 }
 
 function getSuccessor(node) {
