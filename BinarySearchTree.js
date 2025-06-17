@@ -28,5 +28,28 @@ export class Tree {
         return root;
     }
 
+    insert(root, value) {
+        // If node is null then your at a leaf 
+        if (root === null) {
+            return new Node(value);
+        }
+
+        // No duplicates
+        if (root.data === value) return root;
+
+        if (value < root.data) {
+            root.left = this.insert(root.left, value)
+        } else if (value > root.data) {
+            root.right = this.insert(root.right, value);
+        }
+
+        return root;
+
+    }
+
+    deleteItem(root, value) {
+        
+    }
+
 }
 
