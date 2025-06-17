@@ -1,24 +1,18 @@
-import { Node } from "./Node.js";
+class Node {
+    constructor(data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}
 
 export class Tree {
     constructor(array) {
-        this.root = this.buildTree(array);
+        this.root = this.buildTree(array, 0, array.length - 1);
     }
 
-
     buildTree(array, start, end) {
-        // Remove duplicates and sort the array first
-        array =
-            [...new Set(array)]         // Remove duplicates using Set
-                .sort((a, b) => a - b); // Sort the array
-
-        start = 0;
-        end = array.length - 1;
-        console.log(array);
-        
-        console.log(start, end);
-
-        // Termination Case:
+        // Termination Case
         if (start > end) return null;
 
         // Find the middle index
@@ -27,7 +21,7 @@ export class Tree {
         // Create root node at middle index
         let root = new Node(array[mid]);
 
-        // Set the left root
+        // // Set the left root
         root.left = this.buildTree(array, start, mid - 1);
         root.right = this.buildTree(array, mid + 1, end);
 
@@ -35,3 +29,4 @@ export class Tree {
     }
 
 }
+
