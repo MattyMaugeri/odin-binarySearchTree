@@ -208,6 +208,34 @@ export class Tree {
         return findDepth(this.root, value);
     }
 
+    isBalanced(root) {
+        function isBalancedRecursion(root) {
+            if (root === null) return 0;
+
+            let leftHeight = isBalancedRecursion(root.left);
+            let rightHeight = isBalancedRecursion(root.right);
+
+            if (leftHeight === -1 || rightHeight === -1 || Math.abs(leftHeight - rightHeight) > 1) {
+                return -1;
+            }
+
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+
+        return isBalancedRecursion(root) > 0;
+
+    }
+
+    rebalance() {
+        // Create a new array via inOrder traversal
+        const sortedArray = [];
+        this.inOrder(node => sortedArray.push(node.data));
+
+        // Rebuild into a new BST using buildTree()
+        this.root = this.buildTree(sortedArray, 0, sortedArray.length - 1);
+        
+    }
+
 
 }
 

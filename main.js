@@ -1,21 +1,32 @@
 import { Tree } from "./BinarySearchTree.js";
 
-const array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+// Driver script:
+const array = generateRandomArray(4);
 
 const tree = new Tree(sortArray(array));
 
-// console.log(tree.find(tree.root, 67));
+console.log('Tree Balanced : ', tree.isBalanced(tree.root));
+
+console.log('Level Order: ');
+tree.levelOrder(element => console.log(element.data));
+console.log('Pre-Order: ');
+tree.preOrder(element => console.log(element.data));
+console.log('In-Order: ');
+tree.inOrder(element => console.log(element.data));
+console.log('Post-Order: ');
+tree.postOrder(element => console.log(element.data));
+
+// UnBalance tree by adding several > 100
+tree.insert(tree.root, 100);
+tree.insert(tree.root, 101);
+console.log('Tree Balanced after unbalancing : ', tree.isBalanced(tree.root));
 prettyPrint(tree.root);
-// tree.levelOrder(element => console.log(element.data));
-// tree.preOrder(element => console.log(element.data));
-// tree.inOrder(element => console.log(element.data));
-// tree.postOrder(element => console.log(element.data));
 
-// console.log('Height of Tree: ', tree.height(5));
-// console.log(tree.height(3));
-console.log('Depth of node: ', tree.depth(8));
-
-
+// Test rebalance function
+tree.rebalance();
+console.log('Tree graph after rebalance: ');
+prettyPrint(tree.root);
+console.log('Tree Balanced after rebalance() : ', tree.isBalanced(tree.root));
 
 
 function prettyPrint(node, prefix = '', isLeft = true) {
@@ -35,4 +46,13 @@ function sortArray(array) {
     return array =
         [...new Set(array)]         // Remove duplicates using Set
             .sort((a, b) => a - b); // Sort the array
+}
+
+function generateRandomArray(amount) {
+    const array = [];
+    for (let i = 0; i < amount; i++) {
+        array.push(Math.floor(Math.random() * 100));
+    }
+
+    return array;
 }
