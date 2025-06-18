@@ -7,8 +7,10 @@ const tree = new Tree(sortArray(array));
 // console.log(tree.find(tree.root, 67));
 
 prettyPrint(tree.root);
-tree.levelOrder(element => console.log(element.data));
-
+// tree.levelOrder(element => console.log(element.data));
+tree.preOrder(element => console.log(element.data));
+tree.inOrder(element => console.log(element.data));
+tree.postOrder(element => console.log(element.data));
 
 function prettyPrint(node, prefix = '', isLeft = true) {
     if (node === null) {

@@ -120,6 +120,64 @@ export class Tree {
 
     }
 
+    preOrder(callback) {
+        function helperRecursiveFunction(root) {
+            // Base Case:
+            if (root === null) return;
+
+            // Process current node
+            callback(root);
+
+            // Recursively traverse left subtree
+            helperRecursiveFunction(root.left);
+
+            // Recursively traverse right subtree
+            helperRecursiveFunction(root.right);
+        }
+
+        if (typeof callback !== 'function') {
+            throw new Error('A callback function is required!');
+        }
+
+        // Begin recursion with root
+        helperRecursiveFunction(this.root);
+    }
+
+    inOrder(callback) {
+        function helperRecursiveFunction(root) {
+            if (root === null) return;
+
+            helperRecursiveFunction(root.left);
+            callback(root);
+            helperRecursiveFunction(root.right);
+        }
+
+        if (typeof callback !== 'function') {
+            throw new Error('A callback function is required!');
+        }
+
+        helperRecursiveFunction(this.root);
+
+    }
+
+    postOrder(callback) {
+        function helperRecursiveFunction(root) {
+            if (root === null) return;
+
+            helperRecursiveFunction(root.left);
+            helperRecursiveFunction(root.right);
+            callback(root);
+        }
+
+        if (typeof callback !== 'function') {
+            throw new Error('A callback function is required!');
+        }
+
+        helperRecursiveFunction(this.root);
+    }
+
+
+
 }
 
 function getSuccessor(node) {
