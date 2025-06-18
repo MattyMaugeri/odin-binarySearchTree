@@ -70,7 +70,6 @@ export class Tree {
             root.data = successor.data;
             // Remove the duplicate successor value at the leaf position
             root.right = this.deleteItem(root.right, successor.data)
-
         }
 
         return root;
@@ -176,6 +175,38 @@ export class Tree {
         helperRecursiveFunction(this.root);
     }
 
+    height(value) {
+        const node = this.find(this.root, value);
+
+        if (node === null) return null;
+
+        return calculateHeight(node);
+
+        function calculateHeight(node) {
+            if (node === null) return -1;
+
+            let leftHeight = calculateHeight(node.left);
+            let rightHeight = calculateHeight(node.right);
+
+            return 1 + Math.max(leftHeight, rightHeight);
+        }
+
+    }
+
+    depth(value) {
+
+        function findDepth(root, value, depth = 0) {
+            if (root === null) return null;
+            if (root.data === value) return depth;
+
+            return (
+                findDepth(root.left, value, depth + 1) ??
+                findDepth(root.right, value, depth + 1)
+            )
+        }
+
+        return findDepth(this.root, value);
+    }
 
 
 }
